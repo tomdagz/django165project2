@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Eliminar{% endblock title %}
+
+{% block content %}
+
+    {% include "includes/navbar.html"%}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h4>
+                <strong>Eliminando: {{ evento.name}}</strong>
+            </h4>
+        </div><!-- page-header -->
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <form role="form" action="{% url 'evento:eliminar' evento.id %}" method="POST">
+                    {% csrf_token %}
+                    <p class="">¿Desea eliminar el evento "{{ evento.name }}"?</p>
+
+                    <input type="submit" value="Sí" class="btn btn-danger">
+                    <a href="{% url 'evento:panel' %}" class="btn btn-default">No</a>
+                </form>
+
+            </div><!-- col-md-12 -->
+
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+
+{% endblock content %}

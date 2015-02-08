@@ -7,7 +7,7 @@ from django.http import HttpResponse
 def export_as_excel(modeladmin, request, queryset):
     if not request.user.is_staff:
         raise PermissionDenied
-    opts = modeladmin.model._meta    
+    opts = modeladmin.model._meta
     response = HttpResponse(content_type='text/csv; charset=utf-8')
     response['Content-Disposition'] = 'attachment; filename=%s.xls' % unicode(opts).replace('.', '_')
 

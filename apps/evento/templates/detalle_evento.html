@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle{% endblock title %}
+
+{% block content %}
+
+  {% include "includes/navbar.html"%}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h4>
+                <a href="{% url 'evento:panel' %}" class="btn btn-success">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Regresar
+                </a>
+                <strong>Evento: {{ evento.name }}</strong>
+            </h4>
+        </div><!-- page-header -->
+
+        <div class="row">
+
+            <div class="col-md-3 text-center">
+                <img src="{{ evento.image.url }}" alt="{{ evento.name }}" class="img-rounded">
+            </div>
+
+            <div class="col-md-9">
+
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>{{ evento.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Category</th>
+                            <td>{{ evento.category }}</td>
+                        </tr>
+                        <tr>
+                            <th>Content</th>
+                            <td>{{ evento.content }}</td>
+                        </tr>
+                        <tr>
+                            <th>Start / Finish</th>
+                            <td>{{ evento.start }}/ {{ evento.finish }}</td>
+                        </tr>
+                        <tr>
+                            <th>Place</th>
+                            <td>{{ evento.place }}</td>
+                        </tr>
+                        <tr>
+                            <th>Amount</th>
+                            <td>
+                                {% if evento.is_free %}
+                                  <span class="label label-default">Gratuito</span>
+                                {% else %}
+                                  <span class="label label-info">S/. {{ evento.amout }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div><!-- col-md-12 -->
+
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+
+{% endblock content %}
