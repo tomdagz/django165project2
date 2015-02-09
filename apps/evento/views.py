@@ -21,7 +21,7 @@ class PanelView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(PanelView, self).get_context_data(**kwargs)
-        context['eventos'] = Evento.objects.filter(organizer__username='admin')
+        context['eventos'] = Evento.objects.filter(organizer = self.request.user).order_by('is_free','-created')
         context['cantidad'] = context['eventos'].count()
         return context
 
@@ -33,7 +33,7 @@ class CrearEvento(CreateView):
     sucess_url = reverse_lazy('evento:panel')
 
     def form_valid(self, form):
-        form.instance.organizer = User.objects.get(pk=1)
+        form.instance.organizer = self.request.user
         return super(CrearEvento, self).form_valid(form)
 
 
@@ -51,7 +51,7 @@ class EditarEvento(UpdateView):
     form_class = EventoForm
 
     def form_valid(self, form):
-        form.instance.organizer = User.objects.get(pk=1)
+        form.instance.organizer = self.request.user
         return super(EditarEvento, self).form_valid(form)
 
 class EliminarEvento(DeleteView):
