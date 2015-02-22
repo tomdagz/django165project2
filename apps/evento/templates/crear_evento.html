@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Crear{% endblock title %}
+
+{% block content %}
+
+  {% include "includes/navbar.html"%}
+
+    <div class="container">
+
+        <div class="page-header">
+            <h4>
+                <a href='{% url "evento:panel" %}' class="btn btn-success">
+                    <span class="glyphicon glyphicon-chevron-left"></span> Regresar
+                </a>
+                <strong>Crear evento</strong>
+            </h4>
+        </div><!-- page-header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <form role="form" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p class="lead"><span class="glyphicon glyphicon-info-sign"></span> Ingresa los datos de tu evento y compartelo con todos tus conocidos o amigos.</p>
+
+                    {% if form.error %}
+                      <div class="alert alert-danger" role="alert">
+                          {{ form.error }}
+                      </div>
+                    {% endif%}
+
+                    {% for field in form %}
+                      {{ field.label_tag }}
+                      {{ field }}
+                    {% endfor %}
+
+                    
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Guardar evento</button>
+                    </div>
+                </form>
+
+            </div><!-- col-md-12 -->
+
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+
+{% endblock content %}

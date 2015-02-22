@@ -1,7 +1,9 @@
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+from unipath import Path
+BASE_DIR = Path(__file__).ancestor(3)
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -19,6 +21,7 @@ ALLOWED_HOSTS = []
 
 # Application definition
 DJANGO_APPS = (
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -29,6 +32,7 @@ DJANGO_APPS = (
 
 LOCAL_APPS = (
     'apps.evento',
+    'apps.users',
 )
 THIRD_APPS = (
 
@@ -54,7 +58,7 @@ WSGI_APPLICATION = 'eventos.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-MX'
 
 TIME_ZONE = 'UTC'
 
@@ -63,3 +67,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+AUTH_USER_MODEL = 'users.User'
+
+TEMPLATE_CONTEXT_PROCESSORS = TCP + (
+    'django.core.context_processors.request',
+)
